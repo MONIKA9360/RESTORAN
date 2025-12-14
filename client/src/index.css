@@ -1,0 +1,415 @@
+/* Custom CSS Variables */
+:root {
+  --primary: #FEA116;
+  --light: #F1F8FF;
+  --dark: #0F172B;
+}
+
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ff-secondary {
+  font-family: 'Pacifico', cursive;
+}
+
+.fw-medium {
+  font-weight: 600 !important;
+}
+
+.fw-semi-bold {
+  font-weight: 700 !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: #e8940f;
+  border-color: #e8940f;
+}
+
+/* Loading Spinner */
+.spinner-border-primary {
+  color: var(--primary);
+}
+
+/* Custom Components */
+.hero-header {
+  background: linear-gradient(rgba(15, 23, 43, .7), rgba(15, 23, 43, .7));
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.service-item {
+  box-shadow: 0 0 45px rgba(0, 0, 0, .08);
+  transition: .5s;
+}
+
+.service-item:hover {
+  background: var(--primary);
+}
+
+.service-item * {
+  transition: .5s;
+}
+
+.service-item:hover * {
+  color: var(--light) !important;
+}
+
+/* Menu Items */
+.menu-item {
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Booking Form */
+.booking-form {
+  background: var(--dark);
+  color: white;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-header {
+    padding: 100px 0 50px 0;
+  }
+  
+  .display-3 {
+    font-size: 2rem;
+  }
+}
+
+/* Animation Classes */
+.fadeInUp {
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.slideInLeft {
+  animation: slideInLeft 1s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Toast Customization */
+.Toastify__toast--success {
+  background: var(--primary);
+}
+
+.Toastify__toast--error {
+  background: #dc3545;
+}
+
+/* Loading States */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+/* Card Hover Effects */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+/* Full screen layout fixes */
+.container-xxl {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Ensure full width for all containers */
+.container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+
+/* Hero header full width */
+.hero-header {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* Menu section full width */
+.menu-section {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* Fix navbar full width */
+.navbar {
+  width: 100% !important;
+}
+
+/* Ensure sections take full width */
+.py-5 {
+  width: 100%;
+}
+
+/* Override Bootstrap container max-width */
+@media (min-width: 1200px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1200px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1320px;
+  }
+}
+/* Team Section Styles */
+.team-item {
+  background: #fff;
+  box-shadow: 0 0 45px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.team-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.team-item img {
+  transition: all 0.3s ease;
+}
+
+.team-item:hover img {
+  transform: scale(1.1);
+}
+
+/* Counter Animation */
+.counter {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+/* Menu Tab Styles - Simple Original Style */
+.nav-pills .nav-link {
+  border: none;
+  background: none;
+  color: #6c757d;
+  text-decoration: none;
+}
+
+.nav-pills .nav-link.active {
+  background: none;
+  color: var(--primary);
+}
+
+.nav-pills .nav-link:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* Simple menu item styling - No cards, just clean layout */
+.menu-item {
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: translateY(-2px);
+}
+
+/* Tab content styling */
+.tab-content .tab-pane {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Styles */
+.btn-square {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+/* Map Loading Optimization */
+iframe {
+  background: #f8f9fa;
+  transition: opacity 0.3s ease;
+}
+
+iframe[loading="eager"] {
+  opacity: 1;
+}
+
+/* Contact Page Map - Full Size */
+.contact-map iframe {
+  width: 100% !important;
+  height: 400px !important;
+  min-height: 400px !important;
+}
+
+/* Booking Section - Remove All White Space */
+.booking-section {
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+.booking-section .col-md-6 {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  gap: 0 !important;
+}
+
+.booking-section .col-md-6:first-child {
+  border-right: none !important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+.booking-section .col-md-6:last-child {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.booking-section .video {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.booking-section .video img {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* Remove Bootstrap column gaps */
+.booking-section.row {
+  --bs-gutter-x: 0 !important;
+  --bs-gutter-y: 0 !important;
+}
+
+/* Booking Form Improvements */
+.form-floating > .form-select {
+  padding-top: 1.625rem;
+  padding-bottom: 0.625rem;
+}
+
+.form-floating > .form-select ~ label {
+  opacity: 0.65;
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+/* Hero Section Background - Original Template Style */
+.hero-header {
+  background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9));
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Hero Image Animation - Original Template Style */
+.hero-rotate {
+  animation: imgRotate 50s linear infinite;
+}
+
+@keyframes imgRotate { 
+  100% { 
+    transform: rotate(360deg); 
+  } 
+}
+
+/* Navbar Styling - Original Template Style */
+.navbar-dark .navbar-nav .nav-link {
+  position: relative;
+  margin-left: 25px;
+  padding: 35px 0;
+  font-size: 15px;
+  color: var(--light) !important;
+  text-transform: uppercase;
+  font-weight: 500;
+  outline: none;
+  transition: .5s;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+  color: var(--primary) !important;
+}
+
+@media (min-width: 992px) {
+  .navbar-dark {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: transparent !important;
+  }
+}
+
+/* Navbar logo styling - NO ANIMATION for fork icon */
+.navbar-brand i {
+  transition: none;
+}
+
+.navbar-brand:hover i {
+  transform: none;
+}
