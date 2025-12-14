@@ -75,7 +75,7 @@ const mockMenuData = [
 ];
 
 const Home = () => {
-  const [menuData, setMenuData] = useState([]);
+  const [menuData, setMenuData] = useState(mockMenuData);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -126,7 +126,11 @@ const Home = () => {
   const fetchMenu = async () => {
     try {
       const response = await menuAPI.getMenu();
-      setMenuData(response.data.data);
+      if (response.data && response.data.data && Array.isArray(response.data.data)) {
+        setMenuData(response.data.data);
+      } else {
+        setMenuData(mockMenuData);
+      }
     } catch (error) {
       console.error('Error fetching menu:', error);
       console.log('Using mock data instead');
@@ -295,8 +299,8 @@ const Home = () => {
             </div>
           ) : (
             <div className="row g-4">
-              {menuData.slice(0, 2).map((category) => (
-                category.items.slice(0, 4).map((item) => (
+              {menuData && menuData.length > 0 && menuData.slice(0, 2).map((category) => (
+                category.items && category.items.length > 0 && category.items.slice(0, 4).map((item) => (
                   <div key={item.id} className="col-lg-6">
                     <div className="d-flex align-items-center menu-item">
                       <img 
