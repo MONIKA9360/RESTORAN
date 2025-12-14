@@ -299,27 +299,43 @@ const Home = () => {
             </div>
           ) : (
             <div className="row g-4">
-              {menuData && menuData.length > 0 && menuData.slice(0, 2).map((category) => (
-                category.items && category.items.length > 0 && category.items.slice(0, 4).map((item) => (
-                  <div key={item.id} className="col-lg-6">
-                    <div className="d-flex align-items-center menu-item">
-                      <img 
-                        className="flex-shrink-0 img-fluid rounded" 
-                        src={`/${item.image_url}`} 
-                        alt={item.name}
-                        style={{ width: '80px' }}
-                      />
-                      <div className="w-100 d-flex flex-column text-start ps-4">
-                        <h5 className="d-flex justify-content-between border-bottom pb-2">
-                          <span>{item.name}</span>
-                          <span className="text-primary">₹{item.price}</span>
-                        </h5>
-                        <small className="fst-italic">{item.description}</small>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              ))}
+              {(() => {
+                if (!menuData || !Array.isArray(menuData) || menuData.length === 0) {
+                  return null;
+                }
+                
+                const menuItems = [];
+                const categoriesToShow = menuData.slice(0, 2);
+                
+                categoriesToShow.forEach((category) => {
+                  if (category && category.items && Array.isArray(category.items)) {
+                    const itemsToShow = category.items.slice(0, 4);
+                    itemsToShow.forEach((item) => {
+                      menuItems.push(
+                        <div key={item.id} className="col-lg-6">
+                          <div className="d-flex align-items-center menu-item">
+                            <img 
+                              className="flex-shrink-0 img-fluid rounded" 
+                              src={`/${item.image_url}`} 
+                              alt={item.name}
+                              style={{ width: '80px' }}
+                            />
+                            <div className="w-100 d-flex flex-column text-start ps-4">
+                              <h5 className="d-flex justify-content-between border-bottom pb-2">
+                                <span>{item.name}</span>
+                                <span className="text-primary">₹{item.price}</span>
+                              </h5>
+                              <small className="fst-italic">{item.description}</small>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    });
+                  }
+                });
+                
+                return menuItems;
+              })()}
             </div>
           )}
           
