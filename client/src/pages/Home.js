@@ -1,86 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { menuAPI } from '../services/api';
-
-// Mock data for when API is not available
-const mockMenuData = [
-  {
-    id: 1,
-    name: 'Breakfast',
-    items: [
-      {
-        id: 1,
-        name: 'Burrito',
-        description: 'A hearty and satisfying breakfast wrapped in a warm flour tortilla. Packed with classic morning favorites, it\'s a perfect on-the-go meal.',
-        price: 100,
-        image_url: 'img/menu-1.jpg'
-      },
-      {
-        id: 2,
-        name: 'Bread Pakora',
-        description: 'An Indian fried snack featuring spiced gram flour-coated bread slices. This popular street food is a delightful savory treat.',
-        price: 120,
-        image_url: 'img/menu-2.jpg'
-      },
-      {
-        id: 3,
-        name: 'Sandwich',
-        description: 'A versatile breakfast classic, featuring various morning ingredients layered between slices of bread. Perfect for a quick and customizable meal.',
-        price: 100,
-        image_url: 'img/menu-3.jpg'
-      },
-      {
-        id: 4,
-        name: 'French Toast',
-        description: 'Sliced bread soaked in a rich egg and milk batter, then pan-fried to golden perfection. Enjoy this sweet and comforting dish with your favorite toppings.',
-        price: 150,
-        image_url: 'img/menu-4.jpg'
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'Lunch',
-    items: [
-      {
-        id: 5,
-        name: 'Rajma',
-        description: 'A hearty and flavorful North Indian curry made with red kidney beans. Enjoy this comforting and protein-rich dish, perfect with rice or bread.',
-        price: 100,
-        image_url: 'img/menu-9.jpg'
-      },
-      {
-        id: 6,
-        name: 'Soup',
-        description: 'Warm your soul with our comforting soup. Crafted with fresh ingredients, it\'s the perfect start to any meal or a light, satisfying option on its own',
-        price: 120,
-        image_url: 'img/menu-10.jpg'
-      },
-      {
-        id: 7,
-        name: 'Wrap',
-        description: 'A delightful and convenient meal, featuring your choice of savory fillings tightly wrapped in a soft tortilla. Customize it to your taste for a fresh and satisfying bite.',
-        price: 150,
-        image_url: 'img/menu-11.jpg'
-      },
-      {
-        id: 8,
-        name: 'Avocado',
-        description: 'Enjoy the creamy, rich goodness of fresh avocado. A versatile and healthy addition, perfect as a side or integrated into your favorite dishes',
-        price: 250,
-        image_url: 'img/menu-12.jpg'
-      }
-    ]
-  }
-];
 
 const Home = () => {
-  const [menuData, setMenuData] = useState(mockMenuData);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    fetchMenu();
-    
     // Scroll-triggered counter animation
     const handleScroll = () => {
       const aboutSection = document.querySelector('.about-section');
@@ -122,24 +44,6 @@ const Home = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  const fetchMenu = async () => {
-    try {
-      const response = await menuAPI.getMenu();
-      if (response.data && response.data.data && Array.isArray(response.data.data)) {
-        setMenuData(response.data.data);
-      } else {
-        setMenuData(mockMenuData);
-      }
-    } catch (error) {
-      console.error('Error fetching menu:', error);
-      console.log('Using mock data instead');
-      // Use mock data when API is not available
-      setMenuData(mockMenuData);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div>
@@ -291,53 +195,153 @@ const Home = () => {
             <h1 className="mb-5">Most Popular Items</h1>
           </div>
           
-          {loading ? (
-            <div className="loading">
-              <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
+          <div className="row g-4">
+            {/* Breakfast Items */}
+            <div className="col-lg-6">
+              <div className="d-flex align-items-center menu-item">
+                <img 
+                  className="flex-shrink-0 img-fluid rounded" 
+                  src="/img/menu-1.jpg" 
+                  alt="Burrito"
+                  style={{ width: '80px' }}
+                />
+                <div className="w-100 d-flex flex-column text-start ps-4">
+                  <h5 className="d-flex justify-content-between border-bottom pb-2">
+                    <span>Burrito</span>
+                    <span className="text-primary">₹100</span>
+                  </h5>
+                  <small className="fst-italic">A hearty and satisfying breakfast wrapped in a warm flour tortilla. Packed with classic morning favorites, it's a perfect on-the-go meal.</small>
+                </div>
               </div>
             </div>
-          ) : (
-            <div className="row g-4">
-              {(() => {
-                if (!menuData || !Array.isArray(menuData) || menuData.length === 0) {
-                  return null;
-                }
-                
-                const menuItems = [];
-                const categoriesToShow = menuData.slice(0, 2);
-                
-                categoriesToShow.forEach((category) => {
-                  if (category && category.items && Array.isArray(category.items)) {
-                    const itemsToShow = category.items.slice(0, 4);
-                    itemsToShow.forEach((item) => {
-                      menuItems.push(
-                        <div key={item.id} className="col-lg-6">
-                          <div className="d-flex align-items-center menu-item">
-                            <img 
-                              className="flex-shrink-0 img-fluid rounded" 
-                              src={`/${item.image_url}`} 
-                              alt={item.name}
-                              style={{ width: '80px' }}
-                            />
-                            <div className="w-100 d-flex flex-column text-start ps-4">
-                              <h5 className="d-flex justify-content-between border-bottom pb-2">
-                                <span>{item.name}</span>
-                                <span className="text-primary">₹{item.price}</span>
-                              </h5>
-                              <small className="fst-italic">{item.description}</small>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    });
-                  }
-                });
-                
-                return menuItems;
-              })()}
+            
+            <div className="col-lg-6">
+              <div className="d-flex align-items-center menu-item">
+                <img 
+                  className="flex-shrink-0 img-fluid rounded" 
+                  src="/img/menu-2.jpg" 
+                  alt="Bread Pakora"
+                  style={{ width: '80px' }}
+                />
+                <div className="w-100 d-flex flex-column text-start ps-4">
+                  <h5 className="d-flex justify-content-between border-bottom pb-2">
+                    <span>Bread Pakora</span>
+                    <span className="text-primary">₹120</span>
+                  </h5>
+                  <small className="fst-italic">An Indian fried snack featuring spiced gram flour-coated bread slices. This popular street food is a delightful savory treat.</small>
+                </div>
+              </div>
             </div>
-          )}
+            
+            <div className="col-lg-6">
+              <div className="d-flex align-items-center menu-item">
+                <img 
+                  className="flex-shrink-0 img-fluid rounded" 
+                  src="/img/menu-3.jpg" 
+                  alt="Sandwich"
+                  style={{ width: '80px' }}
+                />
+                <div className="w-100 d-flex flex-column text-start ps-4">
+                  <h5 className="d-flex justify-content-between border-bottom pb-2">
+                    <span>Sandwich</span>
+                    <span className="text-primary">₹100</span>
+                  </h5>
+                  <small className="fst-italic">A versatile breakfast classic, featuring various morning ingredients layered between slices of bread. Perfect for a quick and customizable meal.</small>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-lg-6">
+              <div className="d-flex align-items-center menu-item">
+                <img 
+                  className="flex-shrink-0 img-fluid rounded" 
+                  src="/img/menu-4.jpg" 
+                  alt="French Toast"
+                  style={{ width: '80px' }}
+                />
+                <div className="w-100 d-flex flex-column text-start ps-4">
+                  <h5 className="d-flex justify-content-between border-bottom pb-2">
+                    <span>French Toast</span>
+                    <span className="text-primary">₹150</span>
+                  </h5>
+                  <small className="fst-italic">Sliced bread soaked in a rich egg and milk batter, then pan-fried to golden perfection. Enjoy this sweet and comforting dish with your favorite toppings.</small>
+                </div>
+              </div>
+            </div>
+            
+            {/* Lunch Items */}
+            <div className="col-lg-6">
+              <div className="d-flex align-items-center menu-item">
+                <img 
+                  className="flex-shrink-0 img-fluid rounded" 
+                  src="/img/menu-9.jpg" 
+                  alt="Rajma"
+                  style={{ width: '80px' }}
+                />
+                <div className="w-100 d-flex flex-column text-start ps-4">
+                  <h5 className="d-flex justify-content-between border-bottom pb-2">
+                    <span>Rajma</span>
+                    <span className="text-primary">₹100</span>
+                  </h5>
+                  <small className="fst-italic">A hearty and flavorful North Indian curry made with red kidney beans. Enjoy this comforting and protein-rich dish, perfect with rice or bread.</small>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-lg-6">
+              <div className="d-flex align-items-center menu-item">
+                <img 
+                  className="flex-shrink-0 img-fluid rounded" 
+                  src="/img/menu-10.jpg" 
+                  alt="Soup"
+                  style={{ width: '80px' }}
+                />
+                <div className="w-100 d-flex flex-column text-start ps-4">
+                  <h5 className="d-flex justify-content-between border-bottom pb-2">
+                    <span>Soup</span>
+                    <span className="text-primary">₹120</span>
+                  </h5>
+                  <small className="fst-italic">Warm your soul with our comforting soup. Crafted with fresh ingredients, it's the perfect start to any meal or a light, satisfying option on its own</small>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-lg-6">
+              <div className="d-flex align-items-center menu-item">
+                <img 
+                  className="flex-shrink-0 img-fluid rounded" 
+                  src="/img/menu-11.jpg" 
+                  alt="Wrap"
+                  style={{ width: '80px' }}
+                />
+                <div className="w-100 d-flex flex-column text-start ps-4">
+                  <h5 className="d-flex justify-content-between border-bottom pb-2">
+                    <span>Wrap</span>
+                    <span className="text-primary">₹150</span>
+                  </h5>
+                  <small className="fst-italic">A delightful and convenient meal, featuring your choice of savory fillings tightly wrapped in a soft tortilla. Customize it to your taste for a fresh and satisfying bite.</small>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-lg-6">
+              <div className="d-flex align-items-center menu-item">
+                <img 
+                  className="flex-shrink-0 img-fluid rounded" 
+                  src="/img/menu-12.jpg" 
+                  alt="Avocado"
+                  style={{ width: '80px' }}
+                />
+                <div className="w-100 d-flex flex-column text-start ps-4">
+                  <h5 className="d-flex justify-content-between border-bottom pb-2">
+                    <span>Avocado</span>
+                    <span className="text-primary">₹250</span>
+                  </h5>
+                  <small className="fst-italic">Enjoy the creamy, rich goodness of fresh avocado. A versatile and healthy addition, perfect as a side or integrated into your favorite dishes</small>
+                </div>
+              </div>
+            </div>
+          </div>
           
           <div className="text-center mt-5">
             <Link to="/menu" className="btn btn-primary py-3 px-5">
