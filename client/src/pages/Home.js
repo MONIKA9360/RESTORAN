@@ -10,7 +10,6 @@ const Home = () => {
       
       if (aboutSection && counters.length > 0) {
         const sectionTop = aboutSection.offsetTop;
-        const sectionHeight = aboutSection.offsetHeight;
         const scrollPosition = window.scrollY + window.innerHeight;
         
         // Trigger animation when about section comes into view

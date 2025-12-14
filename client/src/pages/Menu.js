@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { menuAPI } from '../services/api';
 
 // Complete menu data matching original template exactly
 const mockMenuData = [
@@ -254,58 +253,46 @@ const Menu = () => {
               {/* Category Tabs */}
               <ul className="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
                 <li className="nav-item">
-                  <a
-                    className={`d-flex align-items-center text-start mx-3 ms-0 pb-3 ${
+                  <button
+                    className={`d-flex align-items-center text-start mx-3 ms-0 pb-3 border-0 bg-transparent ${
                       activeCategory === 0 ? 'active' : ''
                     }`}
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setActiveCategory(0);
-                    }}
+                    onClick={() => setActiveCategory(0)}
                   >
                     <i className="fa fa-coffee fa-2x text-primary"></i>
                     <div className="ps-3">
                       <small className="text-body">Popular</small>
                       <h6 className="mt-n1 mb-0">Breakfast</h6>
                     </div>
-                  </a>
+                  </button>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={`d-flex align-items-center text-start mx-3 pb-3 ${
+                  <button
+                    className={`d-flex align-items-center text-start mx-3 pb-3 border-0 bg-transparent ${
                       activeCategory === 1 ? 'active' : ''
                     }`}
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setActiveCategory(1);
-                    }}
+                    onClick={() => setActiveCategory(1)}
                   >
                     <i className="fa fa-hamburger fa-2x text-primary"></i>
                     <div className="ps-3">
                       <small className="text-body">Special</small>
                       <h6 className="mt-n1 mb-0">Lunch</h6>
                     </div>
-                  </a>
+                  </button>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={`d-flex align-items-center text-start mx-3 me-0 pb-3 ${
+                  <button
+                    className={`d-flex align-items-center text-start mx-3 me-0 pb-3 border-0 bg-transparent ${
                       activeCategory === 2 ? 'active' : ''
                     }`}
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setActiveCategory(2);
-                    }}
+                    onClick={() => setActiveCategory(2)}
                   >
                     <i className="fa fa-utensils fa-2x text-primary"></i>
                     <div className="ps-3">
                       <small className="text-body">Lovely</small>
                       <h6 className="mt-n1 mb-0">Dinner</h6>
                     </div>
-                  </a>
+                  </button>
                 </li>
               </ul>
 
