@@ -7,6 +7,14 @@ require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 
 // Initialize Supabase
+console.log('🔗 Supabase URL:', process.env.SUPABASE_URL ? 'Set' : 'Missing');
+console.log('🔑 Supabase Key:', process.env.SUPABASE_ANON_KEY ? 'Set' : 'Missing');
+
+if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
+  console.error('❌ Missing Supabase environment variables!');
+  process.exit(1);
+}
+
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_ANON_KEY
@@ -21,7 +29,9 @@ app.locals.supabase = supabase;
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://restoran-rust.vercel.app', 'https://restoran-iota-coral.vercel.app'] 
+    : 'http://localhost:3000',
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
@@ -75,6 +85,30 @@ app.post('/api/test-booking', (req, res) => {
     received_data: req.body,
     environment: process.env.NODE_ENV
   });
+});
+
+// Test database connection
+app.get('/api/test-db', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('restaurant_tables')
+      .select('count')
+      .limit(1);
+    
+    if (error) throw error;
+    
+    res.json({
+      success: true,
+      message: 'Database connection working!',
+      data: data
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      message: 'Database connection failed'
+    });
+  }
 });
 
 // Error handling middleware
