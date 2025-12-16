@@ -73,7 +73,17 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
     supabase_url: process.env.SUPABASE_URL ? 'Connected' : 'Missing',
-    email_config: process.env.EMAIL_USER ? 'Configured' : 'Missing'
+    email_config: process.env.EMAIL_USER ? 'Configured' : 'Missing',
+    message: 'Backend is running successfully!'
+  });
+});
+
+// Simple test endpoint
+app.get('/api/test', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Backend API is working!',
+    timestamp: new Date().toISOString()
   });
 });
 
