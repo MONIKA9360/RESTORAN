@@ -61,7 +61,19 @@ app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV 
+    environment: process.env.NODE_ENV,
+    supabase_url: process.env.SUPABASE_URL ? 'Connected' : 'Missing',
+    email_config: process.env.EMAIL_USER ? 'Configured' : 'Missing'
+  });
+});
+
+// Test booking endpoint
+app.post('/api/test-booking', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Backend is working!',
+    received_data: req.body,
+    environment: process.env.NODE_ENV
   });
 });
 
