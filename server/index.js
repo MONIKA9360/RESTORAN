@@ -54,7 +54,7 @@ app.use('/api/contact', (req, res, next) => {
 app.use('/api/tables', (req, res, next) => {
   req.supabase = supabase;
   next();
-}, require('./routes/table
+}, require('./routes/tables'));
 
 // Health check
 app.get('/api/health', (req, res) => {

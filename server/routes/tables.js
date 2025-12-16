@@ -1,10 +1,10 @@
 const express = require('express');
-const { supabase } = require('../index');
 const router = express.Router();
 
 // Get all tables
 router.get('/', async (req, res) => {
   try {
+    const supabase = req.supabase;
     const { location, capacity, available_only } = req.query;
 
     let query = supabase
@@ -44,6 +44,7 @@ router.get('/', async (req, res) => {
 // Get available tables for specific date/time
 router.get('/available', async (req, res) => {
   try {
+    const supabase = req.supabase;
     const { date, time, party_size } = req.query;
 
     if (!date || !time || !party_size) {
@@ -99,6 +100,7 @@ router.get('/available', async (req, res) => {
 // Get single table
 router.get('/:id', async (req, res) => {
   try {
+    const supabase = req.supabase;
     const { id } = req.params;
 
     const { data, error } = await supabase
@@ -133,6 +135,7 @@ router.get('/:id', async (req, res) => {
 // Get table bookings
 router.get('/:id/bookings', async (req, res) => {
   try {
+    const supabase = req.supabase;
     const { id } = req.params;
     const { date } = req.query;
 
