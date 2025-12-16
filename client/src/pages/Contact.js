@@ -94,7 +94,8 @@ const Contact = () => {
                 aria-hidden="false"
                 tabIndex="0"
                 title="Restaurant Location"
-                loading="eager"
+                loading="lazy"
+                onLoad={() => console.log('Map loaded successfully')}
               ></iframe>
             </div>
             <div className="col-md-6">

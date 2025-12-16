@@ -87,6 +87,63 @@ app.get('/api/test', (req, res) => {
   });
 });
 
+// Test booking endpoint (simple version)
+app.post('/api/simple-booking', async (req, res) => {
+  try {
+    console.log('📝 Simple booking test received:', req.body);
+    
+    // Test database connection
+    const { data, error } = await supabase
+      .from('restaurant_tables')
+      .select('*')
+      .limit(1);
+    
+    if (error) {
+      console.error('❌ Database error:', error);
+      return res.status(500).json({
+        success: false,
+        error: 'Database connection failed',
+        details: error.message
+      });
+    }
+    
+    res.json({
+      success: true,
+      message: 'Simple booking test successful!',
+      database_status: 'Connected',
+      tables_found: data ? data.length : 0,
+      received_data: req.body
+    });
+    
+  } catch (error) {
+    console.error('❌ Simple booking error:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// Test contact endpoint (simple version)
+app.post('/api/simple-contact', async (req, res) => {
+  try {
+    console.log('📧 Simple contact test received:', req.body);
+    
+    res.json({
+      success: true,
+      message: 'Simple contact test successful!',
+      received_data: req.body
+    });
+    
+  } catch (error) {
+    console.error('❌ Simple contact error:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
 // Test booking endpoint
 app.post('/api/test-booking', (req, res) => {
   res.json({
