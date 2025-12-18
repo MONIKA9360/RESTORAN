@@ -30,7 +30,12 @@ app.locals.supabase = supabase;
 app.use(helmet());
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://restoran-rust.vercel.app', 'https://restoran-iota-coral.vercel.app'] 
+    ? [
+        'https://restoran-sage.vercel.app',
+        'https://restoran-rust.vercel.app', 
+        'https://restoran-iota-coral.vercel.app',
+        /\.vercel\.app$/
+      ] 
     : 'http://localhost:3000',
   credentials: true
 }));

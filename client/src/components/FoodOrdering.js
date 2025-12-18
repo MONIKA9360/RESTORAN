@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { menuAPI, orderAPI } from '../services/api';
+import { supabaseAPI } from '../services/supabaseClient';
 import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -25,8 +25,8 @@ const FoodOrdering = () => {
   const fetchMenuData = async () => {
     try {
       const [itemsResponse, categoriesResponse] = await Promise.all([
-        menuAPI.getMenuItems(),
-        menuAPI.getCategories()
+        supabaseAPI.getMenuItems(),
+        supabaseAPI.getCategories()
       ]);
       
       setMenuItems(itemsResponse.data);
@@ -107,7 +107,7 @@ const FoodOrdering = () => {
         total_amount: getTotalAmount()
       };
 
-      const response = await orderAPI.createOrder(orderData);
+      const response = await supabaseAPI.createOrder(orderData);
       
       if (response.data.success) {
         toast.success('Order placed successfully! We will contact you soon.');
