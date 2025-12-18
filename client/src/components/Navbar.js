@@ -54,13 +54,13 @@ const Navbar = () => {
           >
             Menu
           </Link>
-          <Link 
+          {/* <Link 
             to="/order" 
             className={`nav-item nav-link ${isActive('/order') ? 'active' : ''}`}
             onClick={() => setIsCollapsed(true)}
           >
             Order Food
-          </Link>
+          </Link> */}
           <Link 
             to="/booking" 
             className={`nav-item nav-link ${isActive('/booking') ? 'active' : ''}`}
