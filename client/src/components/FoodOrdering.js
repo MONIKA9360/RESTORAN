@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { supabaseAPI } from '../services/supabaseClient';
 import { toast } from 'react-toastify';
-import { useAuth } from '../contexts/AuthContext';
+// import { useAuth } from '../contexts/AuthContext';
 
 const FoodOrdering = () => {
-  const { user } = useAuth();
+  const user = null; // Temporary - will add auth later
   const [menuItems, setMenuItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
