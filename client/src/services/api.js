@@ -22,6 +22,8 @@ api.interceptors.request.use((config) => {
 // Menu API
 export const menuAPI = {
   getMenu: () => api.get('/menu'),
+  getMenuItems: () => api.get('/menu'),
+  getCategories: () => api.get('/menu/categories'),
   getMenuByCategory: (categoryId) => api.get(`/menu/category/${categoryId}`),
   getMenuItem: (itemId) => api.get(`/menu/item/${itemId}`),
 };
@@ -49,6 +51,24 @@ export const contactAPI = {
   getMessages: (params = {}) => api.get('/contact', { params }),
   markAsRead: (id) => api.patch(`/contact/${id}/read`),
   deleteMessage: (id) => api.delete(`/contact/${id}`),
+};
+
+// Orders API
+export const orderAPI = {
+  createOrder: (orderData) => api.post('/orders', orderData),
+  getOrders: (params = {}) => api.get('/orders', { params }),
+  getOrder: (id) => api.get(`/orders/${id}`),
+  updateOrderStatus: (id, status) => api.patch(`/orders/${id}/status`, { status }),
+  cancelOrder: (id) => api.delete(`/orders/${id}`),
+};
+
+// Cart API
+export const cartAPI = {
+  getCart: () => api.get('/cart'),
+  addToCart: (itemData) => api.post('/cart', itemData),
+  updateCartItem: (itemId, quantity) => api.put(`/cart/${itemId}`, { quantity }),
+  removeFromCart: (itemId) => api.delete(`/cart/${itemId}`),
+  clearCart: () => api.delete('/cart'),
 };
 
 // Auth API

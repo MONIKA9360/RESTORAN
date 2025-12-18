@@ -1,8 +1,64 @@
 const express = require('express');
 const router = express.Router();
 
-// Get all menu categories with items
+// Get all menu items
 router.get('/', async (req, res) => {
+  try {
+    const supabase = req.supabase;
+    
+    const { data: items, error: itemsError } = await supabase
+      .from('menu_items')
+      .select(`
+        *,
+        menu_categories (
+          id,
+          name
+        )
+      `)
+      .eq('is_available', true)
+      .order('id');
+
+    if (itemsError) throw itemsError;
+
+    res.json({
+      success: true,
+      data: items
+    });
+  } catch (error) {
+    console.error('Error fetching menu items:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch menu data'
+    });
+  }
+});
+
+// Get all menu categories
+router.get('/categories', async (req, res) => {
+  try {
+    const supabase = req.supabase;
+    const { data: categories, error: categoriesError } = await supabase
+      .from('menu_categories')
+      .select('*')
+      .order('display_order');
+
+    if (categoriesError) throw categoriesError;
+
+    res.json({
+      success: true,
+      data: categories
+    });
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch categories'
+    });
+  }
+});
+
+// Get menu with categories and items grouped
+router.get('/grouped', async (req, res) => {
   try {
     const supabase = req.supabase;
     const { data: categories, error: categoriesError } = await supabase
